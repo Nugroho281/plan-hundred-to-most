@@ -14,11 +14,20 @@ TEXT = (
 
 
 def main():
+    # The judged artifact is a fixed 276-code-point plan text; fail loudly
+    # rather than silently writing a truncated or over-long entry.
+    if not 1 <= len(TEXT) <= 280:
+        raise SystemExit(
+            f"plan text must be 1-280 code points, got {len(TEXT)}"
+        )
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
-    with open(path, "w", encoding="utf-8", newline="") as f:
+    # Write atomically so a crash can never leave a partial entry behind.
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8", newline="") as f:
         f.write(TEXT)
+    os.replace(tmp_path, path)
 
 
 if __name__ == "__main__":

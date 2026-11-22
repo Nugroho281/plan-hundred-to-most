@@ -6,6 +6,8 @@
 
 A 30-day plan for an AI agent to turn $100 into the most money: sell Dallas realtors fresh daily lists of expired listings at $49/week, rebuilt every morning so the agent's speed — not persuasion — is the product. Likely $600+ banked by day 30.
 
+Verified: `main.py` writes the 276-code-point plan text to `entry.txt`, byte-identical across repeated runs.
+
 ## Run it
 
 ```sh
